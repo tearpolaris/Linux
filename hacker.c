@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 Toreess 
 @ABCXy
 
+=======
+Test for line 1
+Test for line 2
+Test for line 3
+ABCXYZ
+MKNP
+>>>>>>> issue
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
