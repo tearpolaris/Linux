@@ -5,6 +5,7 @@
 #include <nadal.h>
 #include <stdio.h>
 #include <stdlib.h>
+struct tennis {
 struct student {
 	char name[40];
 	char code[10];
