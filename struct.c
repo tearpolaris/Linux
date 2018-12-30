@@ -1,4 +1,5 @@
 #include <sbc.h>
+#include <credential.h>
 #include <struct.h>
 #include <xyz.h>
 #include <nadal.h>
