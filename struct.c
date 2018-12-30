@@ -1,3 +1,6 @@
+#include <sbc.h>
+#include <xyz.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 struct student {
