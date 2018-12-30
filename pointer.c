@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 int main() {
     char c = 'T', d = 'S';
     char *p1 = &c;
