@@ -364,3 +364,21 @@ function fnSetActiveSheet(iSh)
  </noframes>
 </frameset>
 </html>
+
+"TableName","counter",,,,
+"InitialState","IDLE",,,,
+"StateName","IDLE","RESET","COUNT","INTERRUPT","CAPTURE"
+"entry","-","mParent->EnableReset(true)","MParent->SetSTR(true)","Parent->IssueInterrupt()","Mparent->InputCapture()"
+"exit","-","[mParent != NULL]mParent->EnableReset(false)","mPaRENt->SetSTR(false)"
+"do","-","-","-","-"
+"include",
+"WOE","X","X","X","[parent->mode == 0] IDLE
+[parent->mode == 1] COUNT","COUNT"
+"ResetOn","RESET","/","RESET","RESET","/"
+"ResetOff","/","IDLE"
+"StartCount","COUNT",
+"StopCount","/","/","[true]IDLE",
+"Capture","/","/","CAPTURE"
+"Overflow","X","X","[(parent->int_en == 0)&&(PARENT->mode == 0)] IDLE
+[(parent->int_en == 0)&&(parent->mode == 1)] COUNT
+[parent->int_en == 1] INTERRUPT","X","/"
