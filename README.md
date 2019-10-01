@@ -382,3 +382,8 @@ function fnSetActiveSheet(iSh)
 "Overflow","X","X","[(parent->int_en == 0)&&(PARENT->mode == 0)] IDLE
 [(parent->int_en == 0)&&(parent->mode == 1)] COUNT
 [parent->int_en == 1] INTERRUPT","X","/"
+
+
+http://www.fpgadeveloper.com/2014/07/creating-a-base-system-for-the-zynq-in-vivado.html
+ 
+http://www.fpgadeveloper.com/2014/08/creating-a-custom-ip-block-in-vivado.html
