@@ -7,3 +7,5 @@ https://reactos.org/
 http://usbip.sourceforge.net/#documentation
 
 https://lwn.net/Articles/449509/
+
+https://pdfs.semanticscholar.org/c7c4/cb054d75810fdb0a2affa11c288b7687267f.pdf
