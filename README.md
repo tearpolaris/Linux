@@ -11,3 +11,5 @@ https://lwn.net/Articles/449509/
 https://pdfs.semanticscholar.org/c7c4/cb054d75810fdb0a2affa11c288b7687267f.pdf
 
 https://bootlin.com/docs/
+
+https://docs.microsoft.com/en-us/windows/win32/winsock/complete-client-code
