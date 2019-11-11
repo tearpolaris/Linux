@@ -96,3 +96,33 @@ request* DeQueue(queue *str_queue);
 request* GetFrontQueue(queue *str_queue);
 request* GetRearQueue(queue *str_queue);
 
+#include "usb_func_driver.h"
+#include <stdio.h>
+#include <stdint.h>
+
+void callback(uint32_t adr, uint8_t *buff, uint32_t size);
+void callback(uint32_t adr, uint8_t *buff, uint32_t size) {
+    uint8_t reg_val, idx;
+
+    reg_val = idx = 0; 
+  
+    while (idx < size) {
+       reg_val = Read8_Register(adr);
+       buff[idx] = reg_val;
+       idx++;
+    }
+    
+    else if (Read_Register(REGISTER_STATE) == 2) {
+        printf("Nadal beats Zerev\n");
+    }
+}
+
+#include "usb_func_model.h"
+
+void DMAWriteCallback(void (*callback)(uint32_t adr, uint8_t *buff, uint32_t size)) {
+    callback();
+}
+
+#include <stdio.h>
+#include <stdint.h>
+void DMAWriteCallback(void (*callback)(uint32_t adr, uint8_t *buff, uint32_t size));
