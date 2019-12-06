@@ -125,4 +125,14 @@ void DMAWriteCallback(void (*callback)(uint32_t adr, uint8_t *buff, uint32_t siz
 
 #include <stdio.h>
 #include <stdint.h>
-void DMAWriteCallback(void (*callback)(uint32_t adr, uint8_t *buff, uint32_t size));
+void DMAWriteCallback(void (*callback)(uint32_t adr, uint8_t *buff, uint32_t size
+
+
+Generating a variable-length memory pool
++ Get memory block from variable-length memory pool
++ Delete a variable-length memory pool
++ Acquiring memory blocks from variable-length memory pools
+
+
++ generate and start a task
++ Launching a task
