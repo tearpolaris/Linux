@@ -134,5 +134,6 @@ Generating a variable-length memory pool
 + Acquiring memory blocks from variable-length memory pools
 
 
-+ generate and start a task
-+ Launching a task
++ generate and start a task int8_t *name, int32_t priority, int32_t stacksize, FP entryptr, uint32_t arg
++ Launching a task int32_t tskid, int32_t arg
++ Terminate a task + delete a task: int32_t id
