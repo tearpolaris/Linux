@@ -139,3 +139,169 @@ Generating a variable-length memory pool
 + Terminate a task + delete a task: int32_t id
 
 https://gist.github.com/ngryman/6482577
+
+
+#include "bsakr_commu.h"
+
+
+Event_t arr_event[MAX_EVENT];
+int32_t evt_num = 0;
+
+int8_t* search_evt_obj(int32_t flgid) {
+    return arr_event[flgid].name;
+}
+
+bool check_timeout(int32_t timeout) {
+    if (timeout < BSA_WAIT_FOREVER) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+bool check_mode(int32_t mode) {
+    if ((mode != WAIT_EVTFLG_AND) && (mode != WAIT_EVTFLG_OR)) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+bool get_mode(int32_t mode) {
+    return (mode == WAIT_EVTFLG_AND) ? true : false;
+}
+
+int32_t get_timeout(int32_t timeout) {
+    int32_t ret_time;
+    if (timeout == BSA_WAIT_FOREVER) {
+        ret_time = INFINITE;
+    }
+    else {
+        ret_time = timeout;
+    }
+    return ret_time;
+}
+
+int32_t bsa_create_msg(int8_t *name, int32_t msgbfsz, int32_t maxbytes)
+{
+    return 0;
+}
+int32_t bsakr_create_evtflg(int8_t *name, uint32_t flgptn)
+{
+#ifdef _WIN32
+    HANDLE evt_obj[BIT_WIDTH];
+    bool dup_flgptn;
+    int32_t ret_cre;
+    char *name_evt;
+
+    name_evt = (char*)malloc(strlen((char*)name)+8);
+
+    for (int i = 0; i < BIT_WIDTH; i++) {
+        dup_flgptn = ((flgptn >> i) & (uint8_t)0x1);
+        sprintf_s(name_evt, MAX_LENGTH, "%s%d", name, i);
+        evt_obj[i] = CreateEventA(NULL, true, dup_flgptn, (LPCSTR)name_evt);
+        if (!evt_obj) {
+            dump_message_dummy("There is no spcace for creating event\n");
+            return E_LIMIT;
+        }
+        arr_event[evt_num].hdl_obj[i] = evt_obj[i];
+    }
+    memcpy(arr_event[evt_num].name, name, strlen((char*)name));
+    arr_event[evt_num].id = evt_num;
+    ret_cre = evt_num;
+    evt_num++;
+    return ret_cre;
+#endif
+}
+
+int32_t bsakr_wait_evtflg(int32_t flgid, uint32_t flgptn, uint32_t *p_flgptn, int32_t mode, int32_t timeout)
+{
+    HANDLE ptn_obj[BIT_WIDTH];
+    bool bit_ptn, bwaitall;
+    int32_t idx_ptn_obj, inter_time, count_bit_one, org;
+    DWORD ret_wait;
+
+    *p_flgptn = 0;
+    idx_ptn_obj = 0;
+    count_bit_one = -1;
+    org = 0;
+
+    if (!search_evt_obj(flgid)) {
+        dump_message_dummy("Flag id is not exist\n");
+        return E_NOEXS;
+    }
+
+    if ((!check_timeout(timeout)) || (!check_mode(mode))) {
+        dump_message_dummy("Argument is invalid\n");
+        return E_PAR;
+    }
+
+    for (int i = 0; i < BIT_WIDTH; i++) {
+        bit_ptn = (flgptn >> i) & 0x1;
+        if (bit_ptn) {
+            ptn_obj[idx_ptn_obj++] = arr_event[flgid].hdl_obj[i];
+        }
+    }
+    bwaitall = get_mode(mode);
+    inter_time = get_timeout(timeout);
+    ret_wait = WaitForMultipleObjects(idx_ptn_obj, ptn_obj, bwaitall, inter_time);
+
+    if (ret_wait == WAIT_TIMEOUT) {
+        return E_TMOUT;
+    }
+    else if (ret_wait == WAIT_FAILED) {
+        return E_SYS;
+    }
+
+    if (bwaitall) {
+        *p_flgptn = flgptn;
+    }
+    else {
+        for (int j = 0; j < BIT_WIDTH; j++) {
+            bit_ptn = (flgptn >> j) & 0x1;
+            if (bit_ptn) {
+                count_bit_one++;
+            }
+            if (count_bit_one == ret_wait) {
+                *p_flgptn |= (0x1 << j);
+                break;
+            }
+        }
+    }
+    return E_OK;
+}
+
+int32_t bsakr_set_evtflg(int32_t flgid, uint32_t flgptn)
+{
+    int32_t bit_ptn;
+    if (!search_evt_obj(flgid)) {
+        dump_message_dummy("Flag id is not exist\n");
+        return E_NOEXS;
+    }
+    for (int i = 0; i < BIT_WIDTH; i++) {
+        bit_ptn = (flgptn >> i) & 0x1;
+        if (bit_ptn) {
+            SetEvent(arr_event[flgid].hdl_obj[i]);
+        }
+    }
+    return E_OK;
+}
+
+int32_t bsakr_clear_evtflg(int32_t flgid, uint32_t flgptn)
+{
+    int32_t bit_ptn;
+    if (!search_evt_obj(flgid)) {
+        dump_message_dummy("Flag id is not exist\n");
+        return E_NOEXS;
+    }
+    for (int i = 0; i < BIT_WIDTH; i++) {
+        bit_ptn = (flgptn >> i) & 0x1;
+        if (bit_ptn) {
+            ResetEvent(arr_event[flgid].hdl_obj[i]);
+        }
+    }
+    return E_OK;
+}
+
