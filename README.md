@@ -20,26 +20,6 @@ https://www.vn-z.vn/redirect?to=aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRl
 
 https://drive.google.com/drive/folders/0B4fU5__VXkIkNmtBQW9fRE1peDA
 
-
-[8:57 AM] Truc Do
-    em up len git chua Trinh?
-​[8:57 AM] Trinh Le
-    chua a 
-​[8:57 AM] Trinh Le
-    (smile) 
-​[8:57 AM] Trinh Le
-    e tính fix nốt mấy cái TM rồi mới úp 
-​[8:57 AM] Trinh Le
-    úp luôn hả a 
-​[8:58 AM] Truc Do
-    em up len di de , de minh clone ve chay lai koi thu co dung ban chua, sao do chay run_all 2 mode luon
-​[8:58 AM] Trinh Le
-    oke a 
-​[8:58 AM] Truc Do
-    minh van debug trong thu muc cu trong khi no dang chay o cai minh2 moi clone ve
-​[8:58 AM] Trinh Le
-    vậy đợi xíu e sửa lại 
-(1 liked)​[5:48 PM] Trinh Le
     
 char reg[98][20] = {"PWDVCR","PWDDR","SGDIAGDR01","SGDIAGDR2","SGDIAGSRR", "PWDDIR", "PWDCR", "PWDSGCR", "PWDSGSTCR", "PWDSGSR", "SGDIAGSTCR", "SGDIAGSTPCR", "SGDIAGCR", "SGDIAGPCCR0", "SGDIAGPCCR1", "SGDIAGSR", "SGSTR", "ADHALTR", "ADCR1", "ADCR2", "MPXINTER", "MPXCURR1", "MPXCURR2", "MPXCMDR", "MPXOWR", "GTMENTSGER", "THSMPSTCR", "THSTPCR", "THCR", "THAHLDSTCR", "THBHLDSTCR", "THGSR", "THER", "THACR", "THBCR", "EMUCR", "TDCR", "ODCR", "IEDCR", "SFTCR", "TOCCR", "TOCER", "SYNCER", "ULER", "OWER", "PER", "IDER", "ECR", "VCLMINTER1", "VCLMINTER2", "VCLMINTER3", "PWVCLMINTER", "SDVCLMINTER", "VCLMSR1", "VCLMSR2", "VCLMSR3", "PWVCLMSR", "SDVCLMSR", "SGDIAGULCR", "VCLMSCR1", "VCLMSCR2", "VCLMSCR3", "PWVCLMSCR", "SDVCLMSCR", "SGULCCR", "VCLMASCR", "TRMCR", "ADTSTRA", "ADTSTRB", "ADTSTRC", "ADTSTRD", "MPXCURCR", "SMPCR", "ADSYNSTCR", "ADTSYNSTCR", "VMONVDCR1", "VMONVDCR2", "STPDCR", "VCR", "SGDIAGVCR", "DR", "DIR", "SGDIAGDIR", "SGSTCR", "SGSTPCR", "SGCR", "SGVCPR", "SGMCYCR", "SGSR", "ADTSTCR", "ADTENDCR", "ADTIPR", "ADTPRR", "ADENDP", "VCULLMTBR","SGULCR", "SGTSEL", "WAITTR"}; 
 
