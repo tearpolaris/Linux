@@ -21,113 +21,107 @@ https://www.vn-z.vn/redirect?to=aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRl
 https://drive.google.com/drive/folders/0B4fU5__VXkIkNmtBQW9fRE1peDA
 
     
-char reg[98][20] = {"PWDVCR","PWDDR","SGDIAGDR01","SGDIAGDR2","SGDIAGSRR", "PWDDIR", "PWDCR", "PWDSGCR", "PWDSGSTCR", "PWDSGSR", "SGDIAGSTCR", "SGDIAGSTPCR", "SGDIAGCR", "SGDIAGPCCR0", "SGDIAGPCCR1", "SGDIAGSR", "SGSTR", "ADHALTR", "ADCR1", "ADCR2", "MPXINTER", "MPXCURR1", "MPXCURR2", "MPXCMDR", "MPXOWR", "GTMENTSGER", "THSMPSTCR", "THSTPCR", "THCR", "THAHLDSTCR", "THBHLDSTCR", "THGSR", "THER", "THACR", "THBCR", "EMUCR", "TDCR", "ODCR", "IEDCR", "SFTCR", "TOCCR", "TOCER", "SYNCER", "ULER", "OWER", "PER", "IDER", "ECR", "VCLMINTER1", "VCLMINTER2", "VCLMINTER3", "PWVCLMINTER", "SDVCLMINTER", "VCLMSR1", "VCLMSR2", "VCLMSR3", "PWVCLMSR", "SDVCLMSR", "SGDIAGULCR", "VCLMSCR1", "VCLMSCR2", "VCLMSCR3", "PWVCLMSCR", "SDVCLMSCR", "SGULCCR", "VCLMASCR", "TRMCR", "ADTSTRA", "ADTSTRB", "ADTSTRC", "ADTSTRD", "MPXCURCR", "SMPCR", "ADSYNSTCR", "ADTSYNSTCR", "VMONVDCR1", "VMONVDCR2", "STPDCR", "VCR", "SGDIAGVCR", "DR", "DIR", "SGDIAGDIR", "SGSTCR", "SGSTPCR", "SGCR", "SGVCPR", "SGMCYCR", "SGSR", "ADTSTCR", "ADTENDCR", "ADTIPR", "ADTPRR", "ADENDP", "VCULLMTBR","SGULCR", "SGTSEL", "WAITTR"}; 
-
-
-        //offset register
-        unsigned int offset[98] = {0x180, 0x260, 0x264, 0x268, 0x26C, 0x400, 0x580, 0x584, 0x588, 0x58C, 0x5C0, 0x5C4, 0x5D0, 0x5D4, 0x5D8, 0x5E0, 0x600, 0x640, 0x644, 0x648, 0x654, 0x658, 0x65C, 0x660, 0x664, 0x670, 0x690, 0x694, 0x698, 0x6A0, 0x6A4, 0x6B0, 0x6B4, 0x6C0, 0x6C4, 0x750, 0x760, 0x764, 0x768, 0x770, 0x774, 0x790, 0x794, 0x798, 0x79C, 0x7A0, 0x7A4, 0x7A8, 0x840, 0x844, 0x848, 0x84C, 0x850, 0x860, 0x864, 0x868, 0x86C, 0x870, 0x894, 0x8A0, 0x8A4, 0x8A8, 0x8AC, 0x8B0, 0x8B4, 0x8B8, 0x8C0, 0x8C4, 0x8C8, 0x8CC, 0x8D0, 0x650,  0x64C, 0x610, 0x614, 0x740, 0x744, 0x7B0, 0x000, 0x184, 0x1A0, 0x280, 0x404, 0x440, 0x444, 0x450, 0x454, 0x458, 0x460, 0x508, 0x50C, 0x524, 0x528, 0x674, 0x800, 0x880, 0x1000, 0x700}; 
-
-
-        //expected value
-        unsigned int ex_value[98] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x00, 0x0, 0x00FF1301, 0x00000000, 0x00000000, 0x0,0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xFF, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x55, 0x3F, 0x33, 0x33, 0x1, 0x83, 0x8000019F, 0x1, 0x7F, 0x1, 0x0, 0x0, 0xFF, 0x0, 0x0, 0x0, 0x0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x1, 0x1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xBF00, 0x003F01FF, 0x00003FFF, 0x000021FF, 0x9F, 0x0, 0x0, 0x0, 0x0, 0x1, 0x1, 0x1,0x001F07BF, 0x0F, 0x0, 0x0, 0x0, 0x0, 0x0,0x00000071, 0x0, 0x000000FF, 0x0, 0x0, 0x0,0x001FFFFF, 0x001FFFFF, 0x0, 0xFFFFFFFF, 0x0, 0x0000003F, 0x00000000};     
-//        unsigned int ex_value[77] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x1, 0x01, 0x1, 0x00FF1301, 0xFFFFFFFF, 0xFFFFFFFF, 0x0,0x0, 0x0, 0x0, 0x71, 0x1, 0x0, 0x0, 0xFF, 0x0, 0x1F, 0x0, 0x0, 0x1, 0x0, 0x0, 0x55, 0x3F, 0x33, 0x33, 0x1, 0x83, 0x8000019F, 0x1, 0x7F, 0x1, 0x0, 0x0, 0xFF, 0x0, 0x0, 0x0, 0x0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x1, 0x1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x7, 0x0, 0x0, 0xBF00, 0x003F01FF, 0x00003FFF, 0x000021FF, 0x9F, 0x0, 0x0, 0x0, 0x0, 0x1, 0x1};     
- 
-{ "PWDVCR"      , {0x180  , 0x0        }},
-{ "PWDDR"       , {0x260  , 0x0        }},
-{ "SGDIAGDR01"  , {0x264  , 0x0        }},
-{ "SGDIAGDR2"   , {0x268  , 0x0        }},
-{ "SGDIAGSRR"   , {0x26c  , 0x0        }},
-{ "PWDDIR"      , {0x400  , 0x0        }},
-{ "PWDCR"       , {0x580  , 0x0        }},
-{ "PWDSGCR"     , {0x584  , 0x0        }},
-{ "PWDSGSTCR"   , {0x588  , 0x0        }},
-{ "PWDSGSR"     , {0x58c  , 0x1        }},
-{ "SGDIAGSTCR"  , {0x5c0  , 0x0        }},
-{ "SGDIAGSTPCR" , {0x5c4  , 0x0        }},
-{ "SGDIAGCR"    , {0x5d0  , 0xff1301   }},
-{ "SGDIAGPCCR0" , {0x5d4  , 0x0        }},
-{ "SGDIAGPCCR1" , {0x5d8  , 0x0        }},
-{ "SGDIAGSR"    , {0x5e0  , 0x0        }},
-{ "SGSTR"       , {0x600  , 0x0        }},
-{ "ADHALTR"     , {0x640  , 0x0        }},
-{ "ADCR1"       , {0x644  , 0x0        }},
-{ "ADCR2"       , {0x648  , 0x0        }},
-{ "MPXINTER"    , {0x654  , 0x0        }},
-{ "MPXCURR1"    , {0x658  , 0x0        }},
-{ "MPXCURR2"    , {0x65c  , 0x0        }},
-{ "MPXCMDR"     , {0x660  , 0xff       }},
-{ "MPXOWR"      , {0x664  , 0x0        }},
-{ "GTMENTSGER"  , {0x670  , 0x0        }},
-{ "THSMPSTCR"   , {0x690  , 0x0        }},
-{ "THSTPCR"     , {0x694  , 0x0        }},
-{ "THCR"        , {0x698  , 0x1        }},
-{ "THAHLDSTCR"  , {0x6a0  , 0x0        }},
-{ "THBHLDSTCR"  , {0x6a4  , 0x0        }},
-{ "THGSR"       , {0x6b0  , 0x55       }},
-{ "THER"        , {0x6b4  , 0x3f       }},
-{ "THACR"       , {0x6c0  , 0x33       }},
-{ "THBCR"       , {0x6c4  , 0x33       }},
-{ "EMUCR"       , {0x750  , 0x1        }},
-{ "TDCR"        , {0x760  , 0x83       }},
-{ "ODCR"        , {0x764  , 0x8000019f }},
-{ "IEDCR"       , {0x768  , 0x1        }},
-{ "SFTCR"       , {0x770  , 0x7f       }},
-{ "TOCCR"       , {0x774  , 0x1        }},
-{ "TOCER"       , {0x790  , 0x0        }},
-{ "SYNCER"      , {0x794  , 0x0        }},
-{ "ULER"        , {0x798  , 0xff       }},
-{ "OWER"        , {0x79c  , 0x0        }},
-{ "PER"         , {0x7a0  , 0x0        }},
-{ "IDER"        , {0x7a4  , 0x0        }},
-{ "ECR"         , {0x7a8  , 0x0        }},
-{ "VCLMINTER1"  , {0x840  , 0xffffffff }},
-{ "VCLMINTER2"  , {0x844  , 0xffffffff }},
-{ "VCLMINTER3"  , {0x848  , 0xffffffff }},
-{ "PWVCLMINTER" , {0x84c  , 0x1        }},
-{ "SDVCLMINTER" , {0x850  , 0x1        }},
-{ "VCLMSR1"     , {0x860  , 0xffffffff }},
-{ "VCLMSR2"     , {0x864  , 0xffffffff }},
-{ "VCLMSR3"     , {0x868  , 0xffffffff }},
-{ "PWVCLMSR"    , {0x86c  , 0x0        }},
-{ "SDVCLMSR"    , {0x870  , 0x0        }},
-{ "SGDIAGULCR"  , {0x894  , 0x0        }},
-{ "VCLMSCR1"    , {0x8a0  , 0x0        }},
-{ "VCLMSCR2"    , {0x8a4  , 0x0        }},
-{ "VCLMSCR3"    , {0x8a8  , 0x0        }},
-{ "PWVCLMSCR"   , {0x8ac  , 0x0        }},
-{ "SDVCLMSCR"   , {0x8b0  , 0x0        }},
-{ "SGULCCR"     , {0x8b4  , 0x0        }},
-{ "VCLMASCR"    , {0x8b8  , 0x0        }},
-{ "TRMCR"       , {0x8c0  , 0xbf00     }},
-{ "ADTSTRA"     , {0x8c4  , 0x3f01ff   }},
-{ "ADTSTRB"     , {0x8c8  , 0x3fff     }},
-{ "ADTSTRC"     , {0x8cc  , 0x21ff     }},
-{ "ADTSTRD"     , {0x8d0  , 0x9f       }},
-{ "MPXCURCR"    , {0x650  , 0x0        }},
-{ "SMPCR"       , {0x64c  , 0x0        }},
-{ "ADSYNSTCR"   , {0x610  , 0x0        }},
-{ "ADTSYNSTCR"  , {0x614  , 0x0        }},
-{ "VMONVDCR1"   , {0x740  , 0x1        }},
-{ "VMONVDCR2"   , {0x744  , 0x1        }},
-{ "STPDCR"      , {0x7b0  , 0x1        }},
-{ "VCR"         , {0x0    , 0x1f07bf   }},
-{ "SGDIAGVCR"   , {0x184  , 0xf        }},
-{ "DR"          , {0x1a0  , 0x0        }},
-{ "DIR"         , {0x280  , 0x0        }},
-{ "SGDIAGDIR"   , {0x404  , 0x0        }},
-{ "SGSTCR"      , {0x440  , 0x0        }},
-{ "SGSTPCR"     , {0x444  , 0x0        }},
-{ "SGCR"        , {0x450  , 0x71       }},
-{ "SGVCPR"      , {0x454  , 0x0        }},
-{ "SGMCYCR"     , {0x458  , 0xff       }},
-{ "SGSR"        , {0x460  , 0x0        }},
-{ "ADTSTCR"     , {0x508  , 0x0        }},
-{ "ADTENDCR"    , {0x50c  , 0x0        }},
-{ "ADTIPR"      , {0x524  , 0x1fffff   }},
-{ "ADTPRR"      , {0x528  , 0x1fffff   }},
-{ "ADENDP"      , {0x674  , 0x0        }},
-{ "VCULLMTBR"   , {0x800  , 0xffffffff }},
-{ "SGULCR"      , {0x880  , 0x0        }},
-{ "SGTSEL"      , {0x1000 , 0x3f       }},
-{ "WAITTR"      , {0x700  , 0x0        }}
-
+foreach set_id("typical" "maximum")
+    foreach bus_width("1024" "512" "256" "128" "64" "32" "16" "8")
+        foreach gcc ("6.3" "4,8")
+            foreach timing_mode ("lt" "at") 
+                foreach axi_type("axi3" "axi4") 
+                    foreach input_clock("true" "false")
+                        foreach output_clock("true" "false")
+                            if ($bus_width =~ "1024") then
+                                if ($gcc =~ "6.3") && ($timing_mode =~ "lt") then
+                                    
+                                endif
+                                  
+                                if ($axi_type =~ "axi3") && ($input !~ "true") && ($output_clock !~ "true")
+                                    #ignore 
+                                endif
+                            else if ($bus_width =~ "512") 
+                                 #ignore
+                            else if ($bus_width =~ "256")
+                                 #ignore
+                            else if ($bus_width =~ "128")
+                                if ($axi_type =~ "axi3") && ($input !~ "true") && ($output_clock !~ "true")
+                                    #ignore
+                                    
+                                endif
+    
+                                if ($gcc =~ "4.8") then
+                                    if ($timing_mode !~ "at") then
+                                        #ignore
+                                    endif
+                                    if (($input_clock !~ "true") && ($output_clock !~ "true")) then
+                                        #ignore
+                                    endif
+    
+                                else
+                                    if ($timing_mode !~ "lt") then
+                                       #ignore
+                                    endif
+                                    if (($input_clock !~ "true") && ($output_clock !~ "false")) then
+                                       #ignore
+                                    endif
+                                endif
+                            else if ($bus_width =~ "64")
+                                if ($gcc =~ "4.8") then
+                                    #ignore
+                                endif
+                                if ($timing_mode =~ "at") then
+                                    if (($axi_type =~ "axi3") && ($input_clock !~ "true") && ($output_clock !~ "false")) then
+                                        #ignore
+                                    endif
+                                    if (($axi_type =~ "axi4") && ($input_clock !~ "false") && ($output_clock !~ "true") then
+                                       #ignore
+                                    endif
+                                else
+                                    if (($input_clock !~ "false") && ($output_clock !~ "true")) then
+                                       #ignore
+                                    endif
+                                endif
+                                   
+                            else if ($bus_width =~ "32")
+                                if ($gcc =~ "4.8") then
+                                    #ignore
+                                endif
+    
+                                if ($timing_mode =~ "at") then
+                                    if (($axi_type =~ "axi3") && ($input_clock !~ "false") && ($output_clock !~ "true")) then
+                                        #ignore
+                                    endif
+                                    if (($axi_type =~ "axi4") && ($input_clock !~ "true") && ($output_clock !~ "false") then
+                                       #ignore
+                                    endif
+                                else
+                                    if (($axi_type =~ "axi3") && ($input_clock !~ "true") && ($output_clock !~ "false")) then
+                                        #ignore
+                                    endif
+                                    if (($axi_type =~ "axi4") && ($input_clock !~ "true") && ($output_clock !~ "true") then
+                                       #ignore
+                                    endif
+                                endif
+                            else if ($bus_width =~ "8")
+                                if ($gcc =~ "4.8") then
+                                    #ignore
+                                endif
+    
+                                if ($timing_mode =~ "at") then
+                                    if (($input_clock !~ "true") && ($output_clock !~ "true") then
+                                       #ignore
+                                    endif
+                                else
+                                    if (($axi_type =~ "axi3") && ($input_clock !~ "true") && ($output_clock !~ "true")) then
+                                        #ignore
+                                    endif
+                                    if (($axi_type =~ "axi4") && ($input_clock !~ "true") && ($output_clock !~ "false") then
+                                       #ignore
+                                    endif
+                                endif
+                            endif
+                            source ./frun_gen_list $bus_width $axi_type $timing_mode $gcc $input_clock $output_clock $set_id $en_coverage $run_sim
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
